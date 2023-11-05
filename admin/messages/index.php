@@ -55,10 +55,16 @@ $result = mysqli_query($connection, $sql_query);
                                         echo "<td>" . $row['name'] . "</td>";
                                         echo "<td>" . $row['groupName'] . "</td>";
                                         echo "<td>" . $row['mobileNumber'] . "</td>";
-                                        echo "</tr>";
-                                    }
-                                }
-                            ?>
+										?>
+										<td>
+										<a href="#"><i class="fa-solid fa-eye fa-xl" style="color: #3c66c8;"></i></a>
+										
+										</td>
+									</tr>
+	<?php 
+							}
+							}
+	?>
 						</tbody>
 					</table>
 				</div>

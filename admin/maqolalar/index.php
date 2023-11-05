@@ -34,7 +34,7 @@ $result = mysqli_query($connection, $sql_query);
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3>Testimonials</h3>
+						<h3>Maqolalar</h3>
 						<i class='bx bx-search' ></i>
 						<i class='bx bx-filter' ></i>
 					</div>
@@ -58,12 +58,18 @@ $result = mysqli_query($connection, $sql_query);
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['title'] . "</td>";
                                         echo "<td>" . $row['description'] . "</td>";
-                                        echo "<td>" . $row['img'] . "</td>";
+                                        echo "<td> <img src='./" . $row['img'] . "'></td>";
                                         echo "<td>" . $row['author'] . "</td>";
-                                        echo "</tr>";
-                                    }
-                                }
-                            ?>
+										?>
+										<td>
+										<a href="#"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #1e8c08;"></i></a>
+										<a href="#"><i class="fa-solid fa-trash fa-xl" style="color: #c81414;"></i></a>
+										</td>
+									</tr>
+	<?php 
+							}
+	}
+	?>
 						</tbody>
 					</table>
 				</div>

@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="table-data">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data" >
                 <label for="name">Name:</label>
                 <input type="text"class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " name="name" placeholder="John Doe"><br>
 
@@ -39,24 +39,32 @@
 if(isset($_POST['submit'])){
     $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
 
-    // get form data
     $name = $_POST['name'];
     $subject = $_POST['subject'];
     $socials = $_POST['socials'];
-    $img = $_POST['img'];
+    // img handling
+    $img_name = $_FILES['img']['name'];
+    $img_ext = explode("/",$_FILES['img']['type']);
+    
+
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['img']['tmp_name'];
+    $img_path = "teachers/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
     // query
-    $sql = "insert into teachers(name, subject, img, socials) values('{$name}', '{$subject}','{$img}','{$socials}')";
-    // seeding
+    $sql = "INSERT INTO teachers (name, subject, img, socials) VALUES ('{$name}', '{$subject}', '{$img_path}', '{$socials}')";
+
     // result
     $r = mysqli_query($connection, $sql);
 
     if($r){
-        echo '<h1> Successfully added </h1>';
+        echo '<h1>Successfully added</h1>';
         // header("location: index.php?page=teachers/index");
     }else{
         echo "Error";
     }
-
-
 }
 ?>

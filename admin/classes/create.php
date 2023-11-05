@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="table-data">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <label for="groupName">Group name:</label>
                 <input type="text"class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " name="groupName" placeholder="CF-2"><br>
 
@@ -38,6 +38,9 @@
                 <label for="time" required>Time of studies:</label>
                 <input type="text"class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " placeholder="09:00-16:00" name="time"><br>
 
+                <label for="img" required>IMG:</label>
+                <input type="file" class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " name="img"><br>
+
        
                 <input type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 leading-6 text-white hover:bg-indigo-500  " value="Send" name="submit">
             </form>
@@ -54,14 +57,23 @@ if(isset($_POST['submit'])){
     $capacity = $_POST['capacity'];
     $price = $_POST['price'];
     $time = $_POST['time'];
+    // img handling
+    $img_name = $_FILES['img']['name'];
+    $img_ext = explode("/",$_FILES['img']['type']);
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['img']['tmp_name'];
+    $img_path = "classes/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
 
     // query
-    $sql = "insert into sinflar(group_name, description, ages, capacity, price, time) values('{$groupName}', '{$description}','{$ages}','{$capacity}','{$price}','{$time}')";
+    $sql = "insert into sinflar(group_name, description, ages, capacity, price, time, img) values('{$groupName}', '{$description}','{$ages}','{$capacity}','{$price}','{$time}', '{$img_path}')";
     // seeding
     $r = mysqli_query($connection, $sql);
     // result
     if($r){
-        echo "done!";
+        echo "Done!";
     }else{
         echo "Error";
     }

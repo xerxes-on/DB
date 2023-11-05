@@ -48,22 +48,31 @@ $result = mysqli_query($connection, $sql_query);
                                     }
                                 }
                                 ?>
+								<th> </th>
 							</tr>
 						</thead>
 						<tbody>
                             <?php 
+							
                                 if($result){
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
                                         echo "<td>" . $row['subject'] . "</td>";
-                                        echo "<td>" . $row['img'] . "</td>";
+                                        echo "<td> <img src='./" . $row['img'] . "'></td>";
                                         echo "<td>" . $row['socials'] . "</td>";
-                                        echo "</tr>";
-                                    }
-                                }
-                            ?>
+										?>
+										<td>
+										<a href="#"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #1e8c08;"></i></a>
+										<a href="#"><i class="fa-solid fa-trash fa-xl" style="color: #c81414;"></i></a>
+										</td>
+									</tr>
+	<?php 
+							}
+	}
+	?>
+							
 						</tbody>
 					</table>
 				</div>

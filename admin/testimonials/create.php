@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="table-data">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <label for="name">Name:</label>
                 <input type="text"class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " name="name" placeholder="John Doe"><br>
 
@@ -44,9 +44,20 @@ if(isset($_POST['submit'])){
     $name = $_POST['name'];
     $occupation = $_POST['occupation'];
     $comment = $_POST['comment'];
-    $img = $_POST['img'];
+    // img handling
+    $img_name = $_FILES['img']['name'];
+    $img_ext = explode("/",$_FILES['img']['type']);
+    
+
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['img']['tmp_name'];
+    $img_path = "testimonials/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
     // query
-    $sql = "insert into testimonials(name, comment, img, occupation) values('{$name}', '{$comment}','{$img}','{$occupation}')";
+    $sql = "insert into testimonials(name, comment, img, occupation) values('{$name}', '{$comment}','{$img_path}','{$occupation}')";
     // seeding
     // result
     $r = mysqli_query($connection, $sql);

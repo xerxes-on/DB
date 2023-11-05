@@ -8,7 +8,7 @@
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="?page=maqolalar/index">Add a maqolala</a>
+							<a class="active" href="?page=maqolalar/index">Add a maqola</a>
 						</li>
 					</ul>
 				</div>
@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="table-data">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <label for="title">Title:</label>
                 <input type="text"class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " name="title" placeholder="Main News"><br>
 
@@ -44,10 +44,21 @@ if(isset($_POST['submit'])){
     // get form data
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $img = $_POST['img'];
     $author = $_POST['author'];
+    // img handling
+    $img_name = $_FILES['img']['name'];
+    $img_ext = explode("/",$_FILES['img']['type']);
+    
+
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['img']['tmp_name'];
+    $img_path = "maqolalar/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
     // query
-    $sql = "insert into maqolalar(title, description, img, author) values('{$title}', '{$description}','{$img}','{$author}')";
+    $sql = "insert into maqolalar(title, description, img, author) values('{$title}', '{$description}','{$img_path}','{$author}')";
     // seeding
     $r = mysqli_query($connection, $sql);
     // result

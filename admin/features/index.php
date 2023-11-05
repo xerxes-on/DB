@@ -58,11 +58,17 @@ $result = mysqli_query($connection, $sql_query);
                                         echo "<td>" . $row['feature_id'] . "</td>";
                                         echo "<td>" . $row['feature_name'] . "</td>";
                                         echo "<td>" . $row['feature_description'] . "</td>";
-                                        echo "<td>" . $row['logo'] . "</td>";
-                                        echo "</tr>";
-                                    }
-                                }
-                            ?>
+										echo "<td> <img src='./" . $row['logo'] . "'></td>";
+										?>
+										<td>
+										<a href="#"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #1e8c08;"></i></a>
+										<a href="#"><i class="fa-solid fa-trash fa-xl" style="color: #c81414;"></i></a>
+										</td>
+									</tr>
+	<?php 
+							}
+	}
+	?>
 						</tbody>
 					</table>
 				</div>

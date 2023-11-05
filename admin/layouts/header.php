@@ -64,6 +64,12 @@
 					<span class="text">Testimonials</span>
 				</a>
 			</li>
+			<li>
+				<a href="?page=complaints/index">
+					<i class='bx bxs-chat'></i>
+					<span class="text">Complaints</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
@@ -99,6 +105,6 @@
 				<span class="num">8</span>
 			</a>
 			<a href="#" class="profile">
-				<img src="assets/img/people.png">
+				<img src="assets/people.png">
 			</a>
 </nav>

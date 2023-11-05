@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="table-data">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <label for="feature_name">Title:</label>
                 <input type="text"class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " name="feature_name" placeholder="High quality"><br>
 
@@ -40,9 +40,20 @@ if(isset($_POST['submit'])){
     // get form data
     $name = $_POST['feature_name'];
     $subject = $_POST['description'];
-    $img = $_POST['logo'];
+    // img handling
+    $img_name = $_FILES['logo']['name'];
+    $img_ext = explode("/",$_FILES['logo']['type']);
+    
+
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['logo']['tmp_name'];
+    $img_path = "features/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
     // query
-    $sql = "insert into features(feature_name,feature_description, logo) values('{$name}', '{$subject}','{$img}')";
+    $sql = "insert into features(feature_name,feature_description, logo) values('{$name}', '{$subject}','{$img_path}')";
     // seeding
     $r = mysqli_query($connection, $sql);
     // result

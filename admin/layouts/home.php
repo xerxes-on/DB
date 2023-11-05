@@ -1,22 +1,20 @@
 		<!-- MAIN -->
-		<main >
+		<main style="background-color: #ECE3CE;" >
 			<div class="head-title home">
-				<div class="left">
-					<h1>Dashboard</h1>
-					<ul class="breadcrumb">
-						<li>
-							<a href="#">Dashboard</a>
-						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
-						<li>
-							<a class="active" href="#">Home</a>
-						</li>
-					</ul>
+				<div style="
+				margin: 0px;
+				margin-left: 20vw;
+				height: 100vh;
+				width: 50%;
+				border-radius: 20px 30px;
+				background-image: url(./assets/index.avif);
+				background-repeat: no-repeat;
+				background-size: contain;
+				/* background-position: center; */
+
+				">
+
 				</div>
-			</div>
-
-
-	<h1>WELCOME</h1>
-
+	</div>
 		</main>
 		<!-- MAIN -->
