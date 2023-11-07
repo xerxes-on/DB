@@ -104,7 +104,21 @@
 				<i class='bx bxs-bell' ></i>
 				<span class="num">8</span>
 			</a>
-			<a href="#" class="profile">
+			<a href="?page=user/profile" class="profile">
 				<img src="assets/people.png">
+				<!-- dropdown -->
 			</a>
+			<a href="?logout"><input type="submit" class="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 leading-6 text-white hover:bg-indigo-500" value="Log out" name="logout"></a>
+			
+		
+
 </nav>
+<?php
+if(isset($_GET['logout'])){
+	session_unset();
+	session_destroy();
+	header("Location: ../index.php");
+}
+
+
+?>

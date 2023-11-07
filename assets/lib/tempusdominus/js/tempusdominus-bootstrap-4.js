@@ -659,7 +659,7 @@ var DateTimePicker = function ($, moment) {
         DateTimePicker.prototype._keydown = function _keydown(e) {
             var handler = null,
                 index = void 0,
-                index2 = void 0,
+                ./main/index = void 0,
                 keyBindKeys = void 0,
                 allModifiersPressed = void 0;
             var pressedKeys = [],
@@ -683,8 +683,8 @@ var DateTimePicker = function ($, moment) {
                     keyBindKeys = index.split(' ');
                     if (keyBindKeys.length === pressedKeys.length && KeyMap[currentKey] === keyBindKeys[keyBindKeys.length - 1]) {
                         allModifiersPressed = true;
-                        for (index2 = keyBindKeys.length - 2; index2 >= 0; index2--) {
-                            if (!(KeyMap[keyBindKeys[index2]] in pressedModifiers)) {
+                        for (./main/index = keyBindKeys.length - 2; ./main/index >= 0; ./main/index--) {
+                            if (!(KeyMap[keyBindKeys[./main/index]] in pressedModifiers)) {
                                 allModifiersPressed = false;
                                 break;
                             }

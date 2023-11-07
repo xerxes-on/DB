@@ -74,3 +74,11 @@ switchMode.addEventListener('change', function () {
 		document.body.classList.remove('dark');
 	}
 })
+document.getElementById("user-icon").addEventListener("mouseover", function() {
+	document.getElementById("dropdown-content").style.display = "block";
+  });
+  
+  document.getElementById("user-icon").addEventListener("mouseout", function() {
+	document.getElementById("dropdown-content").style.display = "none";
+  });
+  
