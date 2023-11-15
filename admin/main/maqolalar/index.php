@@ -5,7 +5,7 @@ $sql_query = "SELECT * FROM maqolalar";
 $sql_query2 = "describe maqolalar";
 $result2 = mysqli_query($connection,$sql_query2);
 $result = mysqli_query($connection, $sql_query);
-
+$table = "maqolalar";
 // var_dump($column = mysqli_fetch_assoc($result));
 ?>        
         
@@ -61,13 +61,9 @@ $result = mysqli_query($connection, $sql_query);
                                         echo "<td>" . $row['description'] . "</td>";
                                         echo "<td> <img src='./" . $row['img'] . "'></td>";
                                         echo "<td>" . $row['author'] . "</td>";
-										?>
-										<td>
-										<a href="#"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #1e8c08;"></i></a>
-										<a href="#"><i class="fa-solid fa-trash fa-xl" style="color: #c81414;"></i></a>
-										</td>
-									</tr>
-	<?php 
+										echo "<td><a href='?page=maqolalar/show&id=". $row['id'] ."'><i class='fa-solid fa-eye fa-xl' style='color: #366ece;'></i></a>
+										 <a href='?page=maqolalar/edit&id=". $row['id'] ."'><i class='fa-solid fa-pen-to-square fa-xl' style='color: #1e8c08;'></i></a>
+										<a href='./delete.php?id=" . $row['id'] . "&table=" .$table. "&page=maqolalar'><i class='fa-solid fa-trash fa-xl' style='color: #c81414;'></i></a></td></tr>";
 							}
 	}
 	?>

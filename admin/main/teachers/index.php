@@ -5,7 +5,7 @@ $sql_query = "SELECT * FROM teachers";
 $sql_query2 = "describe teachers";
 $result2 = mysqli_query($connection,$sql_query2);
 $result = mysqli_query($connection, $sql_query);
-
+$table = "teachers";
 // var_dump($column = mysqli_fetch_assoc($result));
 ?>        
         
@@ -55,20 +55,19 @@ $result = mysqli_query($connection, $sql_query);
                             <?php 
 							
                                 if($result){
+									$r ="hjdsk";
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
+										$row['status'] ? ($r = "Dean") : ($r="Teacher");
+                                        echo "<td>" . $r . "</td>";
                                         echo "<td>" . $row['subject'] . "</td>";
                                         echo "<td> <img src='./" . $row['img'] . "'></td>";
                                         echo "<td>" . $row['socials'] . "</td>";
-										?>
-										<td>
-										<a href="#"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #1e8c08;"></i></a>
-										<a href="#"><i class="fa-solid fa-trash fa-xl" style="color: #c81414;"></i></a>
-										</td>
-									</tr>
-	<?php 
+										echo "<td><a href='?page=teachers/show&id=". $row['id'] ."'><i class='fa-solid fa-eye fa-xl' style='color: #366ece;'></i></a>
+										 <a href='?page=teachers/edit&id=". $row['id'] ."'><i class='fa-solid fa-pen-to-square fa-xl' style='color: #1e8c08;'></i></a>
+										<a href='./delete.php?id=" . $row['id'] . "&table=" .$table. "&page=teachers'><i class='fa-solid fa-trash fa-xl' style='color: #c81414;'></i></a></td></tr>";
 							}
 	}
 	?>

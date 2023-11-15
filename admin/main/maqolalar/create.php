@@ -1,3 +1,42 @@
+<?php
+if(isset($_POST['submit'])){
+    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
+
+    // get form data
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $author = $_POST['author'];
+    // img handling
+    $img_name = $_FILES['img']['name'];
+    $img_ext = explode("/",$_FILES['img']['type']);
+    
+
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['img']['tmp_name'];
+    $img_path = "maqolalar/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
+    // query
+    $sql = "insert into maqolalar(title, description, img, author) values('{$title}', '{$description}','{$img_path}','{$author}')";
+    // seeding
+    $r = mysqli_query($connection, $sql);
+    // result
+    if($r){
+        header("location: ?page=maqolalar/index");
+
+    }else{
+        echo "Error";
+    }
+
+
+}
+
+
+
+
+?>
 <main>
 			<div class="head-title">
 				<div class="left">
@@ -37,41 +76,3 @@
             </form>
 			</div>
 		</main>
-<?php
-if(isset($_POST['submit'])){
-    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
-
-    // get form data
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $author = $_POST['author'];
-    // img handling
-    $img_name = $_FILES['img']['name'];
-    $img_ext = explode("/",$_FILES['img']['type']);
-    
-
-    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
-    $img_temp = $_FILES['img']['tmp_name'];
-    $img_path = "maqolalar/uploads/" . $uniqueName;
- 
-
-    move_uploaded_file($img_temp, $img_path);
-
-    // query
-    $sql = "insert into maqolalar(title, description, img, author) values('{$title}', '{$description}','{$img_path}','{$author}')";
-    // seeding
-    $r = mysqli_query($connection, $sql);
-    // result
-    if($r){
-        echo "Done!";
-    }else{
-        echo "Error";
-    }
-
-
-}
-
-
-
-
-?>

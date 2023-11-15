@@ -1,3 +1,39 @@
+<?php
+if(isset($_POST['submit'])){
+    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
+
+    // get form data
+    $name = $_POST['feature_name'];
+    $subject = $_POST['description'];
+    // img handling
+    $img_name = $_FILES['logo']['name'];
+    $img_ext = explode("/",$_FILES['logo']['type']);
+    
+
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['logo']['tmp_name'];
+    $img_path = "features/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
+    // query
+    $sql = "insert into features(feature_name,feature_description, logo) values('{$name}', '{$subject}','{$img_path}')";
+    // seeding
+    $r = mysqli_query($connection, $sql);
+    // result
+    if($r){
+        header("location: ?page=features/index");
+    }else{
+        echo "Error";
+    }
+
+}
+
+
+
+
+?>
 <main>
 			<div class="head-title">
 				<div class="left">
@@ -33,39 +69,3 @@
             </form>
 			</div>
 		</main>
-<?php
-if(isset($_POST['submit'])){
-    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
-
-    // get form data
-    $name = $_POST['feature_name'];
-    $subject = $_POST['description'];
-    // img handling
-    $img_name = $_FILES['logo']['name'];
-    $img_ext = explode("/",$_FILES['logo']['type']);
-    
-
-    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
-    $img_temp = $_FILES['logo']['tmp_name'];
-    $img_path = "features/uploads/" . $uniqueName;
- 
-
-    move_uploaded_file($img_temp, $img_path);
-
-    // query
-    $sql = "insert into features(feature_name,feature_description, logo) values('{$name}', '{$subject}','{$img_path}')";
-    // seeding
-    $r = mysqli_query($connection, $sql);
-    // result
-    if($r){
-        echo "Done!";
-    }else{
-        echo "Error";
-    }
-
-}
-
-
-
-
-?>

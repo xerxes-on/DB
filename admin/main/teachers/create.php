@@ -1,3 +1,36 @@
+<?php
+if(isset($_POST['submit'])){
+    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
+
+    $name = $_POST['name'];
+    $subject = $_POST['subject'];
+    $socials = $_POST['socials'];
+    $status = $_POST['status'];
+    // img handling
+    $img_name = $_FILES['img']['name'];
+    $img_ext = explode("/",$_FILES['img']['type']);
+    
+
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['img']['tmp_name'];
+    $img_path = "teachers/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
+    // query
+    $sql = "INSERT INTO teachers (name, subject,status, img, socials) VALUES ('{$name}', '{$subject}','{$status}', '{$img_path}', '{$socials}')";
+
+    // result
+    $r = mysqli_query($connection, $sql);
+
+    if($r){
+        header("location: ?page=teachers/index");
+    }else{
+        echo "Error";
+    }
+}
+?>
 <main>
 			<div class="head-title">
 				<div class="left">
@@ -26,6 +59,11 @@
                 <label for="subject" >Subject:</label>
                 <input type="text" name="subject" class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " placeholder="Math, Science.."><br>
 
+
+                <label for="status" >Status:</label>
+                <input type="number" name="status" class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " placeholder="1 0"><br>
+
+
                 <label for="email" required>E-mail:</label>
                 <input type="email"class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " placeholder="example@web.com" name="socials"><br>
 
@@ -35,36 +73,4 @@
             </form>
 			</div>
 </main>
-<?php
-if(isset($_POST['submit'])){
-    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
 
-    $name = $_POST['name'];
-    $subject = $_POST['subject'];
-    $socials = $_POST['socials'];
-    // img handling
-    $img_name = $_FILES['img']['name'];
-    $img_ext = explode("/",$_FILES['img']['type']);
-    
-
-    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
-    $img_temp = $_FILES['img']['tmp_name'];
-    $img_path = "teachers/uploads/" . $uniqueName;
- 
-
-    move_uploaded_file($img_temp, $img_path);
-
-    // query
-    $sql = "INSERT INTO teachers (name, subject, img, socials) VALUES ('{$name}', '{$subject}', '{$img_path}', '{$socials}')";
-
-    // result
-    $r = mysqli_query($connection, $sql);
-
-    if($r){
-        echo '<h1>Successfully added</h1>';
-        // header("location: index.php?page=teachers/index");
-    }else{
-        echo "Error";
-    }
-}
-?>

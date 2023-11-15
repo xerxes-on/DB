@@ -49,29 +49,52 @@
             <div class="col-lg-3 col-md-6 mb-5">
                 <h3 class="text-primary mb-4">Tezkor havolalar</h3>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Bosh sahifa</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Sinflar</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>O'qituvchilar</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Galereya</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Maqolalar</a>
-                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Aloqa</a>
+                    <a class="text-white mb-2" href="?page=home"><i class="fa fa-angle-right mr-2"></i>Bosh sahifa</a>
+                    <a class="text-white mb-2" href="?page=class"><i class="fa fa-angle-right mr-2"></i>Sinflar</a>
+                    <a class="text-white mb-2" href="?page=team"><i class="fa fa-angle-right mr-2"></i>O'qituvchilar</a>
+                    <a class="text-white mb-2" href="?page=gallery"><i class="fa fa-angle-right mr-2"></i>Galereya</a>
+                    <a class="text-white mb-2" href="?page=blog"><i class="fa fa-angle-right mr-2"></i>Maqolalar</a>
+                    <a class="text-white" href="?page=home"><i class="fa fa-angle-right mr-2"></i>Aloqa</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
                 <h3 class="text-primary mb-4">Shikoyat</h3>
-                <form action="">
+                <form method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control border-0 py-4" placeholder="Ismingiz" required="required" />
+                        <input type="text" class="form-control border-0 py-4" placeholder="Ismingiz" required="required"name="name1" />
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control border-0 py-4" placeholder="Shikoyatni yozing"
+                        <input type="text" class="form-control border-0 py-4" placeholder="Shikoyatni yozing" name="complaint"
                             required="required" />
                     </div>
                     <div>
-                        <button class="btn btn-primary btn-block border-0 py-3" type="submit">Yuborish</button>
+                        <input class="btn btn-primary btn-block border-0 py-3" value="Yuborish" type="submit" name="s2">
                     </div>
                 </form>
+                <?php
+                // form handling
+                 if(isset($_POST['s2'])){
+                            $name = $_POST['name1'];
+                            $complaint = $_POST['complaint'];
+                            $result_message = mysqli_query($connection,"INSERT INTO complaints(name, complaint) VALUES ('{$name}', '{$complaint}')");
+                            if($result_message){
+                                echo '
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+                                </script>
+                                <script>
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "Successfully Sent",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                </script>';
+                            }
+                            }
+                            ?>
             </div>
+
         </div>
         <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);;">
             <p class="m-0 text-center text-white">

@@ -1,3 +1,54 @@
+<?php
+if(isset($_POST['submit'])){
+    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
+
+    // get form data
+    $groupName = $_POST['groupName'];
+    $description = $_POST['description'];
+    $ages = $_POST['ages'];
+    $capacity = $_POST['capacity'];
+    $price = $_POST['price'];
+    $time = $_POST['time'];
+    // img handling
+    $img_name = $_FILES['img']['name'];
+    $img_ext = explode("/",$_FILES['img']['type']);
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['img']['tmp_name'];
+    $img_path = "classes/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
+    // query
+    $sql = "insert into sinflar(group_name, description, ages, capacity, price, time, img) values('{$groupName}', '{$description}','{$ages}','{$capacity}','{$price}','{$time}', '{$img_path}')";
+    // seeding
+    $r = mysqli_query($connection, $sql);
+    // result
+    if($r){
+        // echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+        // echo '<script>
+        //         Swal.fire({
+        //             position: "top-end",
+        //             icon: "success",
+        //             title: "Successfully saved",
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         }).then(function() {
+        //             window.location.href = "?page=classes/index";
+        //         });
+        //       </script>';
+        header("location: ?page=classes/index");
+    }else{
+        echo "Error";
+    }
+
+
+}
+
+
+
+
+?>
 <main>
 			<div class="head-title">
 				<div class="left">
@@ -42,46 +93,8 @@
                 <input type="file" class="block w-full rounded-md border-0 py-1.5  ring-1 ring-inset ring-gray-300 focus:ring-2 " name="img"><br>
 
        
-                <input type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 leading-6 text-white hover:bg-indigo-500  " value="Send" name="submit">
+                <input type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 leading-6 text-white hover:bg-indigo-500  "  value="Send" name="submit">
             </form>
 			</div>
 		</main>
-<?php
-if(isset($_POST['submit'])){
-    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
 
-    // get form data
-    $groupName = $_POST['groupName'];
-    $description = $_POST['description'];
-    $ages = $_POST['ages'];
-    $capacity = $_POST['capacity'];
-    $price = $_POST['price'];
-    $time = $_POST['time'];
-    // img handling
-    $img_name = $_FILES['img']['name'];
-    $img_ext = explode("/",$_FILES['img']['type']);
-    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
-    $img_temp = $_FILES['img']['tmp_name'];
-    $img_path = "classes/uploads/" . $uniqueName;
- 
-
-    move_uploaded_file($img_temp, $img_path);
-
-    // query
-    $sql = "insert into sinflar(group_name, description, ages, capacity, price, time, img) values('{$groupName}', '{$description}','{$ages}','{$capacity}','{$price}','{$time}', '{$img_path}')";
-    // seeding
-    $r = mysqli_query($connection, $sql);
-    // result
-    if($r){
-        echo "Done!";
-    }else{
-        echo "Error";
-    }
-
-
-}
-
-
-
-
-?>

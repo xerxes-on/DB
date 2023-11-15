@@ -1,12 +1,15 @@
 <?php
+
 $connection = mysqli_connect("localhost","root","root", "Jajjiprofessor") or die("Couldn't connect to DB");
 
 $sql_query = "SELECT * FROM sinflar";
 $sql_query2 = "describe sinflar";
 $result2 = mysqli_query($connection,$sql_query2);
 $result = mysqli_query($connection, $sql_query);
-
+$table = "sinflar";
 // var_dump($column = mysqli_fetch_assoc($result));
+
+
 ?>        
         
         <!-- MAIN -->
@@ -64,13 +67,10 @@ $result = mysqli_query($connection, $sql_query);
                                         echo "<td>" . $row['price'] ." sum" . "</td>";
                                         echo "<td>" . $row['time'] . "</td>";
                                         echo "<td> <img src='./" . $row['img'] . "'></td>";
-										?>
-										<td>
-										<a href="#"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #1e8c08;"></i></a>
-										<a href="#"><i class="fa-solid fa-trash fa-xl" style="color: #c81414;"></i></a>
-										</td>
-									</tr>
-	<?php 
+										echo "<td><a href='?page=classes/show&id=". $row['id'] ."'><i class='fa-solid fa-eye fa-xl' style='color: #366ece;'></i></a>
+										 <a href='?page=classes/edit&id=". $row['id'] ."'><i class='fa-solid fa-pen-to-square fa-xl' style='color: #1e8c08;'></i></a>
+										<a href='./delete.php?id=" . $row['id'] . "&table=" .$table. "&page=classes'><i class='fa-solid fa-trash fa-xl' style='color: #c81414;'></i></a></td></tr>";
+	
 							}
 	}
 	?>
@@ -80,3 +80,4 @@ $result = mysqli_query($connection, $sql_query);
 			</div>
 		</main>
 		<!-- MAIN -->
+

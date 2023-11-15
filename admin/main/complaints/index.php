@@ -5,7 +5,7 @@ $sql_query = "SELECT * FROM complaints";
 $sql_query2 = "describe complaints";
 $result2 = mysqli_query($connection,$sql_query2);
 $result = mysqli_query($connection, $sql_query);
-
+$table = "complaints";
 // var_dump($column = mysqli_fetch_assoc($result));
 ?>        
         
@@ -54,14 +54,10 @@ $result = mysqli_query($connection, $sql_query);
                                         echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['complaints'] . "</td>";
-										?>
-										<td>
-										<a href="#"><i class="fa-solid fa-eye fa-xl" style="color: #3c66c8;"></i></a>
-										
-										</td>
-									</tr>
-	<?php 
+                                        echo "<td>" . substr($row['complaint'], 0, 35) . "</td>";
+										echo "<td><a href='?page=testimonials/show&id=". $row['id'] ."'><i class='fa-solid fa-eye fa-xl' style='color: #366ece;'></i></a>
+									   <a href='./delete.php?id=" . $row['id'] . "&table=" .$table. "&page=testimonials'><i class='fa-solid fa-trash fa-xl' style='color: #c81414;'></i></a></td></tr>";
+
 							}
 							}
 	?>

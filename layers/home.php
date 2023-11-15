@@ -1,4 +1,13 @@
+<?php 
+    $connection = mysqli_connect("localhost","root","root", "Jajjiprofessor") or die("Couldn't connect to DB");
+    $result_teachers = mysqli_query($connection, "SELECT * FROM teachers WHERE status = 0");
+    $res_maqola = mysqli_query($connection, "SELECT * FROM maqolalar");
+    $res_class = mysqli_query($connection, "SELECT * FROM sinflar");
+    $res_testimonial = mysqli_query($connection, "SELECT * FROM testimonials");
+    $features = mysqli_query($connection, "SELECT * FROM features");
 
+
+?>
     <!-- Header Start -->
     <div class="container-fluid bg-primary px-0 px-md-5 mb-5">
         <div class="row align-items-center px-3">
@@ -23,60 +32,24 @@
     <div class="container-fluid pt-5">
         <div class="container pb-3">
             <div class="row">
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-050-fence h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>O'yin maydoni</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...</p>
+
+
+                <?php
+                if($features){
+                    while($row = mysqli_fetch_assoc($features)){
+                        echo'<div class="col-lg-4 col-md-6 pb-1">
+                        <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
+                        <img class="rounded-circle" src="./admin/main/' .$row['logo'] .'" style="width: 70px; height: 70px;" alt="Image">
+                            <div class="pl-4">
+                                <h4>'.$row['feature_name'].'</h4>
+                                <p class="m-0">'.$row['feature_description'].'</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-022-drum h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Musiqa va raqs</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-030-crayons h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>San'at va qo'l san'atlari</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-017-toy-car h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Xavfsiz transport</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-025-sandwich h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Sog'lom ovqat</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-047-backpack h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Ta'lim safari</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
+                    </div>';
+                    }
+                }
+
+                ?>
             </div>
         </div>
     </div>
@@ -111,90 +84,44 @@
                 <h1 class="mb-4">Farzandlaringiz uchun gruhni tanlang</h1>
             </div>
             <div class="row">
-                <div class="col-lg-4 mb-5">
-                    <div class="card border-0 bg-light shadow-sm pb-2">
-                        <img class="card-img-top mb-2" src="assets/img/class-1.jpg" alt="">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Group Bugirsoq</h4>
-                            <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
+
+                <?php
+                if($res_class){
+                    $counter=0;
+                    while((($row = mysqli_fetch_assoc($res_class))&&($counter!= 3))){
+                        echo'<div class="col-lg-4 mb-5">
+                        <div class="card border-0 bg-light shadow-sm pb-2">
+                            <img class="card-img-top mb-2" src="./admin/main/' .$row['img'] .'" alt="">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Group ' .$row['group_name'] .'</h4>
+                                <p class="card-text">' .$row['description'] .'</p>
+                            </div>
+                            <div class="card-footer bg-transparent py-4 px-5">
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right"><strong>Bolalar yoshi</strong></div>
+                                    <div class="col-6 py-1">' .$row['ages'] .' yosh</div>
+                                </div>
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right"><strong>Jami orindiqlar</strong></div>
+                                    <div class="col-6 py-1">' .$row['capacity'] .' orindiq</div>
+                                </div>
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right"><strong>Dars vaqti</strong></div>
+                                    <div class="col-6 py-1">' .$row['time'] .'</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 py-1 text-right border-right"><strong>Oylik tolov</strong></div>
+                                    <div class="col-6 py-1">' .$row['price'] .' / Oy</div>
+                                </div>
+                            </div>
+                            <a href="tel:+998996111300" class="btn btn-primary px-4 mx-auto mb-4">Hoziroq qoshil</a>
                         </div>
-                        <div class="card-footer bg-transparent py-4 px-5">
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Bolalar yoshi</strong></div>
-                                <div class="col-6 py-1">3 - 4 yosh</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Jami o'rindiqlar</strong></div>
-                                <div class="col-6 py-1">40 o'rindiq</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Dars vaqti</strong></div>
-                                <div class="col-6 py-1">08:00 - 17:00</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 py-1 text-right border-right"><strong>Oylik to'lov</strong></div>
-                                <div class="col-6 py-1">350 000 / Oy</div>
-                            </div>
-                        </div>
-                        <a href="tel:+998996111300" class="btn btn-primary px-4 mx-auto mb-4">Hoziroq qo'shil</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-5">
-                    <div class="card border-0 bg-light shadow-sm pb-2">
-                        <img class="card-img-top mb-2" src="assets/img/class-2.jpg" alt="">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Group Alpomish</h4>
-                            <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
-                        </div>
-                        <div class="card-footer bg-transparent py-4 px-5">
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Bolalar yoshi</strong></div>
-                                <div class="col-6 py-1">4 - 5 yosh</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Jami o'rindiqlar</strong></div>
-                                <div class="col-6 py-1">40 o'rindiq</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Dars vaqti</strong></div>
-                                <div class="col-6 py-1">08:00 - 17:00</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 py-1 text-right border-right"><strong>Oylik to'lov</strong></div>
-                                <div class="col-6 py-1">350 000 / Oy</div>
-                            </div>
-                        </div>
-                        <a href="tel:+998996111300" class="btn btn-primary px-4 mx-auto mb-4">Hoziroq qo'shil</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-5">
-                    <div class="card border-0 bg-light shadow-sm pb-2">
-                        <img class="card-img-top mb-2" src="assets/img/class-3.jpg" alt="">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Group Profesor</h4>
-                            <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
-                        </div>
-                        <div class="card-footer bg-transparent py-4 px-5">
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Bolalar yoshi</strong></div>
-                                <div class="col-6 py-1">5 - 6 yosh</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Jami o'rindiqlar</strong></div>
-                                <div class="col-6 py-1">40 o'rindiq</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Dars vaqti</strong></div>
-                                <div class="col-6 py-1">08:00 - 17:00</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 py-1 text-right border-right"><strong>Oylik to'lov</strong></div>
-                                <div class="col-6 py-1">350 000 / Oy</div>
-                            </div>
-                        </div>
-                        <a href="tel:+998996111300" class="btn btn-primary px-4 mx-auto mb-4">Hoziroq qo'shil</a>
-                    </div>
-                </div>
+                    </div>';
+                    $counter++;
+                    }
+                }
+
+                ?>
             </div>
         </div>
     </div>
@@ -224,25 +151,46 @@
                             <h1 class="text-white m-0">O'rindiqni buyurtma qiling</h1>
                         </div>
                         <div class="card-body rounded-bottom bg-primary p-5">
-                            <form>
+                            <form method="post" >
                                 <div class="form-group">
-                                    <input type="text" class="form-control border-0 p-4" placeholder="Ismingiz" required="required" />
+                                    <input type="text" class="form-control border-0 p-4" placeholder="Ismingiz" name="name" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="tel" class="form-control border-0 p-4" placeholder="Telefon raqamingiz" required="required" />
+                                    <input type="tel" class="form-control border-0 p-4" placeholder="Telefon raqamingiz" name="mobile" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <select class="custom-select border-0 px-4" style="height: 47px;">
+                                    <select name="group" class="custom-select border-0 px-4" style="height: 47px;">
                                         <option selected>Sinfni tanlang</option>
-                                        <option value="1">Group Bugirsoq</option>
-                                        <option value="2">Group Alpomish</option>
-                                        <option value="3">Group Profesor</option>
+                                        <option value="Bugirsoq">Group Bugirsoq</option>
+                                        <option value="Alpomish">Group Alpomish</option>
+                                        <option value="Profesor">Group Profesor</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <button class="btn btn-secondary btn-block border-0 py-3" type="submit">Yuborish</button>
+                                    <input type="submit" class="btn btn-secondary btn-block border-0 py-3"  name="s1" value="Yuborish">
                                 </div>
                             </form>
+                            <!-- form handling -->
+                            <?php if(isset($_POST['s1'])){
+                                $name = $_POST['name'];
+                                $mobile = $_POST['mobile'];
+                                $group = $_POST['group'];
+                            $result_message = mysqli_query($connection,"INSERT INTO messages(name, mobileNumber,groupName) VALUES ('{$name}', '{$mobile}', '{$group}')");
+                            if($result_message){
+                                echo '
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                <script>
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "Successfully Sent",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                </script>';
+                            }
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -260,70 +208,34 @@
                 <h1 class="mb-4">O'qituvchilarimiz bilan tanishing</h1>
             </div>
             <div class="row">
-                <div class="col-md-6 col-lg-3 text-center team mb-5">
-                    <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                        <img class="img-fluid w-100" src="assets/img/team-1.jpg" alt="" >
-                        <div
-                            class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-telegram"></i></a>
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <h4>Dadaxanova Dilnoza</h4>
-                    <i>Musiqa o'qituvchisi</i>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center team mb-5">
-                    <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                        <img class="img-fluid w-100" src="assets/img/team-2.jpg" alt="" >
-                        <div
-                            class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-telegram"></i></a>
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <h4>Bahromov Dilmurod</h4>
-                    <i>Til o'qituvchisi</i>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center team mb-5">
-                    <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                        <img class="img-fluid w-100" src="assets/img/team-3.jpg" alt="" >
-                        <div
-                            class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-telegram"></i></a>
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <h4>Milloboyeva Mahfuza</h4>
-                    <i>Raqs o'qituvchisi</i>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center team mb-5">
-                    <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                        <img class="img-fluid w-100" src="assets/img/team-4.jpg" alt="" >
-                        <div
-                            class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-telegram"></i></a>
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <h4>Dadaxanov Gurbittin</h4>
-                    <i>San'at o'qituvchisi</i>
-                </div>
+
+                <?php    
+                    if($result_teachers){
+                        $count = 0;
+                        while(($row = mysqli_fetch_assoc($result_teachers)) && ($count!=4)){
+                            echo '                <div class="col-md-6 col-lg-3 text-center team mb-5">
+                            <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
+                                <img class="img-fluid w-100" src="./admin/main/'. $row['img'] .'" alt="" >
+                                <div
+                                    class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
+                                    <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                        href="#"><i class="fab fa-telegram"></i></a>
+                                    <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                        href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
+                                        href="#"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <h4>' . $row['name'] . '</h4>
+                            <i>'. $row['subject'] .' o"qituvchisi</i>
+                        </div>';
+                        $count++;
+                        }
+                        
+                    }
+                
+                
+                ?>
             </div>
         </div>
     </div>
@@ -338,58 +250,27 @@
                 <h1 class="mb-4">Ota-onalar nima deyishadi!</h1>
             </div>
             <div class="owl-carousel testimonial-carousel">
-                <div class="testimonial-item px-3">
-                    <div class="bg-light shadow-sm rounded mb-4 p-4">
-                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum clita
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="assets/img/testimonial-1.jpg" style="width: 70px; height: 70px;" alt="Image">
-                        <div class="pl-3">
-                            <h5>Toshpolatov Nodir</h5>
-                            <i>O'qituvchi</i>
+
+                <?php
+                if($res_testimonial){
+                    while($row = mysqli_fetch_assoc($res_testimonial)){
+                        echo'<div class="testimonial-item px-3">
+                        <div class="bg-light shadow-sm rounded mb-4 p-4">
+                            <h3 class="fas fa-quote-left text-primary mr-3"></h3>
+                            '.$row['comment'].'
                         </div>
-                    </div>
-                </div>
-                <div class="testimonial-item px-3">
-                    <div class="bg-light shadow-sm rounded mb-4 p-4">
-                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum clita
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="assets/img/testimonial-2.jpg" style="width: 70px; height: 70px;" alt="Image">
-                        <div class="pl-3">
-                            <h5>Umrzaqova Nilufar</h5>
-                            <i>Programist</i>
+                        <div class="d-flex align-items-center">
+                            <img class="rounded-circle" src="./admin/main/' .$row['img'] .'" style="width: 70px; height: 70px;" alt="Image">
+                            <div class="pl-3">
+                                <h5>'.$row['name'].'</h5>
+                                <i>'.$row['occupation'].'</i>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="testimonial-item px-3">
-                    <div class="bg-light shadow-sm rounded mb-4 p-4">
-                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum clita
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="assets/img/testimonial-3.jpg" style="width: 70px; height: 70px;" alt="Image">
-                        <div class="pl-3">
-                            <h5>Sobirov Rustam</h5>
-                            <i>Sartarosh</i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-item px-3">
-                    <div class="bg-light shadow-sm rounded mb-4 p-4">
-                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum clita
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="assets/img/testimonial-4.jpg" style="width: 70px; height: 70px;" alt="Image">
-                        <div class="pl-3">
-                            <h5>Baqlajanov Ulkan</h5>
-                            <i>PR-Manager</i>
-                        </div>
-                    </div>
-                </div>
+                    </div>';
+                    }
+                }
+
+                ?>
             </div>
         </div>
     </div>
@@ -404,51 +285,29 @@
                 <h1 class="mb-4">So'nggi maqolalar</h1>
             </div>
             <div class="row pb-3">
-                <div class="col-lg-4 mb-4">
-                    <div class="card border-0 shadow-sm mb-2">
-                        <img class="card-img-top mb-2" src="assets/img/blog-1.jpg" alt="">
-                        <div class="card-body bg-light text-center p-4">
-                            <h4 class="">Maqola sarlavhasi</h4>
-                            <div class="d-flex justify-content-center mb-3">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Komiljanova Nargiza</small>
-                                <!-- <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small> -->
-                                <!-- <small class="mr-3"><i class="fa fa-eye text-primary"></i> 15</small> -->
+
+                <?php
+                if($res_maqola){
+                    $counter=0;
+                    while(($row = mysqli_fetch_assoc($res_maqola))&& $counter!=3){
+                        echo'<div class="col-lg-4 mb-4">
+                        <div class="card border-0 shadow-sm mb-2">
+                            <img class="card-img-top mb-2" src="./admin/main/' .$row['img'] .'" alt="">
+                            <div class="card-body bg-light text-center p-4">
+                                <h4 class="">'.$row['title'].'</h4>
+                                <div class="d-flex justify-content-center mb-3">
+                                    <small class="mr-3"><i class="fa fa-user text-primary"></i> '.$row['author'].'</small>
+                                </div>
+                                <p>'.$row['description'].'</p>
+                                <!-- <a href="" class="btn btn-primary px-4 mx-auto my-2">Batafsil</a> -->
                             </div>
-                            <p>Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam eirmod, duo et sed sit eirmod kasd clita tempor dolor stet lorem. Tempor ipsum justo amet stet...</p>
-                            <!-- <a href="" class="btn btn-primary px-4 mx-auto my-2">Batafsil</a> -->
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card border-0 shadow-sm mb-2">
-                        <img class="card-img-top mb-2" src="assets/img/blog-2.jpg" alt="">
-                        <div class="card-body bg-light text-center p-4">
-                            <h4 class="">Maqola sarlavhasi</h4>
-                            <div class="d-flex justify-content-center mb-3">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Komiljanova Nargiza</small>
-                                <!-- <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small> -->
-                                <!-- <small class="mr-3"><i class="fa fa-eye text-primary"></i> 15</small> -->
-                            </div>
-                            <p>Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam eirmod, duo et sed sit eirmod kasd clita tempor dolor stet lorem. Tempor ipsum justo amet stet...</p>
-                            <!-- <a href="" class="btn btn-primary px-4 mx-auto my-2">Batafsil</a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card border-0 shadow-sm mb-2">
-                        <img class="card-img-top mb-2" src="assets/img/blog-3.jpg" alt="">
-                        <div class="card-body bg-light text-center p-4">
-                            <h4 class="">Maqola sarlavhasi</h4>
-                            <div class="d-flex justify-content-center mb-3">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Komiljanova Nargiza</small>
-                                <!-- <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small> -->
-                                <!-- <small class="mr-3"><i class="fa fa-eye text-primary"></i> 15</small> -->
-                            </div>
-                            <p>Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam eirmod, duo et sed sit eirmod kasd clita tempor dolor stet lorem. Tempor ipsum justo amet stet...</p>
-                            <!-- <a href="" class="btn btn-primary px-4 mx-auto my-2">Batafsil</a> -->
-                        </div>
-                    </div>
-                </div>
+                    </div>';
+                    $counter++;
+                    }
+                }
+
+                ?>
             </div>
         </div>
     </div>

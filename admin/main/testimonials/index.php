@@ -5,7 +5,7 @@ $sql_query = "SELECT * FROM testimonials";
 $sql_query2 = "describe testimonials";
 $result2 = mysqli_query($connection,$sql_query2);
 $result = mysqli_query($connection, $sql_query);
-
+$table = "testimonials";
 // var_dump($column = mysqli_fetch_assoc($result));
 ?>        
         
@@ -58,17 +58,14 @@ $result = mysqli_query($connection, $sql_query);
                                         echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['comment'] . "</td>";
+                                        // Get the first 30 characters of the comment
+										echo "<td class='overflow-hidden-comment'>" . substr($row['comment'], 0, 30) . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";
                                         echo "<td>" . $row['occupation'] . "</td>";
 										echo "<td> <img src='./" . $row['img'] . "'></td>";
-										?>
-										<td>
-										<a href="#"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #1e8c08;"></i></a>
-										<a href="#"><i class="fa-solid fa-trash fa-xl" style="color: #c81414;"></i></a>
-										</td>
-									</tr>
-	<?php 
+										echo "<td><a href='?page=testimonials/show&id=". $row['id'] ."'><i class='fa-solid fa-eye fa-xl' style='color: #366ece;'></i></a>
+										 <a href='?page=testimonials/edit&id=". $row['id'] ."'><i class='fa-solid fa-pen-to-square fa-xl' style='color: #1e8c08;'></i></a>
+										<a href='./delete.php?id=" . $row['id'] . "&table=" .$table. "&page=testimonials'><i class='fa-solid fa-trash fa-xl' style='color: #c81414;'></i></a></td></tr>";
 							}
 	}
 	?>

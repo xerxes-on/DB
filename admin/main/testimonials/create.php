@@ -1,3 +1,39 @@
+<?php
+if(isset($_POST['submit'])){
+    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
+
+    // get form data
+    $name = $_POST['name'];
+    $occupation = $_POST['occupation'];
+    $comment = $_POST['comment'];
+    // img handling
+    $img_name = $_FILES['img']['name'];
+    $img_ext = explode("/",$_FILES['img']['type']);
+    
+
+    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
+    $img_temp = $_FILES['img']['tmp_name'];
+    $img_path = "testimonials/uploads/" . $uniqueName;
+ 
+
+    move_uploaded_file($img_temp, $img_path);
+
+    // query
+    $sql = "insert into testimonials(name, comment, img, occupation) values('{$name}', '{$comment}','{$img_path}','{$occupation}')";
+    // seeding
+    // result
+    $r = mysqli_query($connection, $sql);
+
+    if($r){
+        header("location: ?page=testimonials/index");
+
+    }else{
+        echo "Error";
+    }
+
+
+}
+?>
 <main>
 			<div class="head-title">
 				<div class="left">
@@ -36,38 +72,3 @@
             </form>
 			</div>
 		</main>
-<?php
-if(isset($_POST['submit'])){
-    $connection = mysqli_connect('localhost','root','root', 'Jajjiprofessor') or die('Db not connected');
-
-    // get form data
-    $name = $_POST['name'];
-    $occupation = $_POST['occupation'];
-    $comment = $_POST['comment'];
-    // img handling
-    $img_name = $_FILES['img']['name'];
-    $img_ext = explode("/",$_FILES['img']['type']);
-    
-
-    $uniqueName = uniqid(" ", $img_name) .".". $img_ext[1];
-    $img_temp = $_FILES['img']['tmp_name'];
-    $img_path = "testimonials/uploads/" . $uniqueName;
- 
-
-    move_uploaded_file($img_temp, $img_path);
-
-    // query
-    $sql = "insert into testimonials(name, comment, img, occupation) values('{$name}', '{$comment}','{$img_path}','{$occupation}')";
-    // seeding
-    // result
-    $r = mysqli_query($connection, $sql);
-
-    if($r){
-        echo '<h3> Successfully added!</h3>';
-    }else{
-        echo "Error";
-    }
-
-
-}
-?>

@@ -5,7 +5,7 @@ $sql_query = "SELECT * FROM features";
 $sql_query2 = "describe features";
 $result2 = mysqli_query($connection,$sql_query2);
 $result = mysqli_query($connection, $sql_query);
-
+$table = "features";
 // var_dump($column = mysqli_fetch_assoc($result));
 ?>        
         
@@ -56,17 +56,13 @@ $result = mysqli_query($connection, $sql_query);
                                 if($result){
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<tr>";
-                                        echo "<td>" . $row['feature_id'] . "</td>";
+                                        echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['feature_name'] . "</td>";
                                         echo "<td>" . $row['feature_description'] . "</td>";
 										echo "<td> <img src='./" . $row['logo'] . "'></td>";
-										?>
-										<td>
-										<a href="#"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #1e8c08;"></i></a>
-										<a href="#"><i class="fa-solid fa-trash fa-xl" style="color: #c81414;"></i></a>
-										</td>
-									</tr>
-	<?php 
+										echo "<td><a href='?page=features/show&id=". $row['id'] ."'><i class='fa-solid fa-eye fa-xl' style='color: #366ece;'></i></a>
+										 <a href='?page=features/edit&id=". $row['id'] ."'><i class='fa-solid fa-pen-to-square fa-xl' style='color: #1e8c08;'></i></a>
+										<a href='./delete.php?id=" . $row['id'] . "&table=" .$table. "&page=features'><i class='fa-solid fa-trash fa-xl' style='color: #c81414;'></i></a></td></tr>";
 							}
 	}
 	?>
